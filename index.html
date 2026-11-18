@@ -2,62 +2,73 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>J.A.R.V.I.S.</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:'Inter',sans-serif;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:#000;color:#fff;font-family:'Inter',sans-serif;height:100dvh;overflow:hidden;display:flex;flex-direction:column}
 body.light{background:#f8fafc;color:#0f172a}
-.top{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;position:relative;z-index:10}
-.logo{font-family:'Orbitron';font-size:20px;letter-spacing:5px}
-.logo span{display:block;font-family:'Inter';font-size:10px;letter-spacing:3px;color:#888;font-weight:500;margin-top:2px}
-#trayBtn{width:44px;height:44px;border-radius:50%;border:1px solid #27272a;background:#111;color:#fff;font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.top{flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top));position:relative;z-index:20}
+.logo{font-family:'Orbitron';font-size:19px;letter-spacing:4px;line-height:1}
+.logo span{display:block;font-family:'Inter';font-size:10px;letter-spacing:2px;color:#888;font-weight:500;margin-top:3px}
+#trayBtn{position:fixed;top:12px;right:14px;top:max(12px,env(safe-area-inset-top));width:48px;height:48px;border-radius:50%;border:1px solid #333;background:#111;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,.6)}
 body.light #trayBtn{background:#fff;color:#0f172a;border-color:#e2e8f0}
-.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:1;padding:0 20px;min-height:0}
-#logoWrap{position:relative;width:460px;height:460px;max-width:94vw;max-height:54vh;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-#glowBehind{position:absolute;inset:0;background:radial-gradient(circle,rgba(255,140,0,.45) 0%,rgba(255,87,34,.18) 35%,transparent 70%);filter:blur(18px);animation:breath 2.4s ease-in-out infinite}
-@keyframes breath{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.08);opacity:1}}
-#glowBehind.speaking{animation:breath .5s ease-in-out infinite;background:radial-gradient(circle,rgba(255,180,0,.65) 0%,rgba(255,87,34,.3) 40%,transparent 72%)}
-#jarvisLogo{position:relative;width:100%;height:100%;object-fit:contain;border-radius:0;border:none;background:transparent;mix-blend-mode:screen;filter:drop-shadow(0 0 28px rgba(255,140,0,.75)) drop-shadow(0 0 60px rgba(255,87,34,.4));cursor:pointer;transition:transform .3s;animation:floaty 5s ease-in-out infinite}
-@keyframes floaty{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.03) rotate(.6deg)}}
-#jarvisLogo.speaking{transform:scale(1.06);filter:drop-shadow(0 0 38px rgba(255,180,0,.95)) drop-shadow(0 0 80px rgba(255,87,34,.6));animation:shake .15s infinite}
-@keyframes shake{0%{transform:scale(1.06) translateX(0)}25%{transform:scale(1.06) translateX(1px)}50%{transform:scale(1.06) translateX(-1px)}75%{transform:scale(1.06) translateX(1px)}100%{transform:scale(1.06) translateX(0)}}
-#jarvisLogo.listening{filter:drop-shadow(0 0 34px rgba(34,197,94,.7)) drop-shadow(0 0 60px rgba(255,140,0,.4))}
-#jarvisLogo.yosef{filter:drop-shadow(0 0 34px rgba(250,204,21,.9)) drop-shadow(0 0 70px rgba(250,204,21,.5))}
-.subtitle{margin-top:6px;min-height:26px;font-size:16px;color:#d4d4d4;text-align:center;max-width:90vw;line-height:1.5;font-weight:500}
+.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0;padding:4px 16px;position:relative;z-index:1}
+#logoWrap{position:relative;width:min(320px,78vw);height:min(320px,78vw);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+#glowBehind{position:absolute;inset:-10px;background:radial-gradient(circle,rgba(255,140,0,.5) 0%,rgba(255,87,34,.2) 38%,transparent 70%);filter:blur(16px);animation:breath 2.4s ease-in-out infinite;pointer-events:none}
+@keyframes breath{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.07);opacity:1}}
+#glowBehind.speaking{animation:heartbeatGlow .9s ease-in-out infinite;background:radial-gradient(circle,rgba(255,180,0,.7) 0%,rgba(255,87,34,.35) 42%,transparent 72%)}
+@keyframes heartbeatGlow{0%{transform:scale(1);opacity:.8}14%{transform:scale(1.12);opacity:1}28%{transform:scale(1)}42%{transform:scale(1.08);opacity:1}70%{transform:scale(1);opacity:.8}100%{transform:scale(1);opacity:.8}}
+#jarvisLogo{position:relative;width:100%;height:100%;object-fit:contain;border-radius:0;border:none;background:transparent;display:block;filter:drop-shadow(0 0 24px rgba(255,140,0,.8)) drop-shadow(0 0 50px rgba(255,87,34,.4));cursor:pointer;animation:floaty 5s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+#jarvisLogo.speaking{animation:heartbeat 0.9s ease-in-out infinite !important;filter:drop-shadow(0 0 38px rgba(255,180,0,.95)) drop-shadow(0 0 80px rgba(255,87,34,.6))}
+@keyframes heartbeat{0%{transform:scale(1)}14%{transform:scale(1.11)}28%{transform:scale(1)}42%{transform:scale(1.07)}70%{transform:scale(1)}100%{transform:scale(1)}}
+#jarvisLogo.listening{animation:listenPulse 1.2s ease-in-out infinite !important;filter:drop-shadow(0 0 30px rgba(34,197,94,.8)) drop-shadow(0 0 50px rgba(255,140,0,.4))}
+@keyframes listenPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+#jarvisLogo.yosef{filter:drop-shadow(0 0 32px rgba(250,204,21,.9)) drop-shadow(0 0 60px rgba(250,204,21,.5))}
+#fallbackReactor{position:absolute;inset:0;display:none;align-items:center;justify-content:center}
+#fallbackReactor.show{display:flex}
+.fallbackCore{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,#fff8e1 0%,#ffeb3b 20%,#ff9800 45%,#ff5722 70%,transparent 100%);box-shadow:0 0 60px #ff9800,0 0 120px #ff5722;animation:heartbeat 0.9s ease-in-out infinite}
+.fallbackRing{position:absolute;width:220px;height:220px;border-radius:50%;border:2px solid rgba(255,152,0,.5);animation:spin 8s linear infinite}
+.fallbackRing2{position:absolute;width:260px;height:260px;border-radius:50%;border:1px dashed rgba(255,152,0,.4);animation:spinRev 12s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinRev{to{transform:rotate(-360deg)}}
+.subtitle{margin-top:10px;font-size:14px;line-height:1.4;color:#d4d4d4;text-align:center;max-width:92vw;min-height:40px;max-height:40px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;font-weight:500}
 body.light .subtitle{color:#475569}
-.status{margin-top:8px;font-size:11px;letter-spacing:3px;color:#71717a;font-family:'Orbitron'}
+.status{margin-top:6px;font-size:11px;letter-spacing:3px;color:#71717a;font-family:'Orbitron';flex-shrink:0}
 .status span{color:#22c55e}
-.bottom{position:relative;z-index:10;padding:0 16px 18px;max-width:680px;width:100%;margin:0 auto}
-.chat{height:128px;overflow-y:auto;background:rgba(255,255,255,.04);border:1px solid #27272a;border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.bottom{flex-shrink:0;padding:10px 14px 14px;padding-bottom:max(14px,env(safe-area-inset-bottom));max-width:680px;width:100%;margin:0 auto;background:#000}
+body.light .bottom{background:#f8fafc}
+.chat{height:118px;overflow-y:auto;background:rgba(255,255,255,.04);border:1px solid #27272a;border-radius:18px;padding:10px;display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
 body.light .chat{background:#fff;border-color:#e2e8f0}
-.msg{font-size:14px;line-height:1.5;padding:10px 14px;border-radius:14px;max-width:88%;white-space:pre-wrap}
+.msg{font-size:14px;line-height:1.45;padding:9px 12px;border-radius:14px;max-width:90%;white-space:pre-wrap;word-break:break-word}
 .msg.user{background:#fff;color:#000;align-self:flex-end;font-weight:500}
 body.light .msg.user{background:#0f172a;color:#fff}
 .msg.jarvis{background:#1a1a1a;border:1px solid #27272a;align-self:flex-start;color:#e5e5e5}
 body.light .msg.jarvis{background:#f1f5f9;color:#334155;border-color:#e2e8f0}
-.inputRow{display:flex;gap:10px;align-items:center}
-.inputRow input{flex:1;padding:14px 18px;border-radius:999px;border:1px solid #27272a;background:#111;color:#fff;outline:none;font-family:'Inter';font-size:14px;min-width:0}
+.inputRow{display:flex;gap:8px;align-items:center}
+.inputRow input{flex:1;min-width:0;padding:13px 16px;border-radius:999px;border:1px solid #27272a;background:#111;color:#fff;outline:none;font-family:'Inter';font-size:15px}
 body.light .inputRow input{background:#fff;color:#0f172a;border-color:#e2e8f0}
-.micBtn{width:52px;height:52px;border-radius:50%;background:#fff;color:#000;border:none;font-size:20px;cursor:pointer;flex-shrink:0}
+.micBtn{width:50px;height:50px;border-radius:50%;background:#fff;color:#000;border:none;font-size:20px;cursor:pointer;flex-shrink:0}
 body.light .micBtn{background:#0f172a;color:#fff}
-.sendBtn{padding:14px 22px;border-radius:999px;background:#fff;color:#000;border:none;font-weight:600;font-family:'Inter';font-size:14px;cursor:pointer;flex-shrink:0}
+.sendBtn{padding:13px 20px;border-radius:999px;background:#fff;color:#000;border:none;font-weight:600;font-family:'Inter';font-size:14px;cursor:pointer;flex-shrink:0}
 body.light .sendBtn{background:#0f172a;color:#fff}
-.hint{font-size:11px;color:#52525b;text-align:center;margin-top:10px}
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40;display:none}
+.hint{font-size:11px;color:#52525b;text-align:center;margin-top:8px}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;display:none}
 #overlay.open{display:block}
-#tray{position:fixed;top:0;right:-380px;width:340px;max-width:88vw;height:100%;background:#0a0a0a;border-left:1px solid #27272a;z-index:50;transition:.35s cubic-bezier(.2,.8,.2,1);padding:22px;overflow-y:auto}
+#tray{position:fixed;top:0;right:-100%;width:min(360px,92vw);height:100dvh;background:#0a0a0a;border-left:1px solid #27272a;z-index:95;transition:.3s ease;padding:20px;padding-top:max(20px,env(safe-area-inset-top));overflow-y:auto;-webkit-overflow-scrolling:touch}
 body.light #tray{background:#fff;border-left-color:#e2e8f0}
 #tray.open{right:0}
-.trayHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.trayHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
 .trayHead h3{font-family:'Orbitron';font-size:14px;letter-spacing:2px}
-.closeTray{width:36px;height:36px;border-radius:50%;border:1px solid #27272a;background:#111;color:#fff;cursor:pointer;font-size:16px}
+.closeTray{width:38px;height:38px;border-radius:50%;border:1px solid #27272a;background:#111;color:#fff;cursor:pointer;font-size:16px}
 body.light .closeTray{background:#f1f5f9;color:#0f172a;border-color:#e2e8f0}
 .trayLabel{font-size:11px;letter-spacing:2px;color:#71717a;margin:18px 0 10px;font-weight:600}
-.trayRow{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.trayRow{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .trayRow::-webkit-scrollbar{display:none}
-.trayRow button{white-space:nowrap;padding:10px 14px;border-radius:999px;border:1px solid #27272a;background:#111;color:#fff;font-family:'Inter';font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0}
+.trayRow button{white-space:nowrap;padding:11px 15px;border-radius:999px;border:1px solid #27272a;background:#111;color:#fff;font-family:'Inter';font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0}
 body.light .trayRow button{background:#f8fafc;color:#0f172a;border-color:#e2e8f0}
 .trayRow button.active{background:#fff;color:#000;border-color:#fff}
 body.light .trayRow button.active{background:#0f172a;color:#fff}
@@ -65,21 +76,30 @@ body.light .trayRow button.active{background:#0f172a;color:#fff}
 body.light .trayCard{background:#f8fafc;border-color:#e2e8f0}
 .trayCard p{font-size:13px;color:#a1a1aa;line-height:1.6}
 body.light .trayCard p{color:#64748b}
-.trayCard input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #27272a;background:#000;color:#fff;outline:none;font-family:'Inter';font-size:13px;margin-top:8px}
+.trayCard input{width:100%;padding:11px 12px;border-radius:10px;border:1px solid #27272a;background:#000;color:#fff;outline:none;font-family:'Inter';font-size:13px;margin-top:8px}
 body.light .trayCard input{background:#fff;color:#0f172a;border-color:#e2e8f0}
 .trayCard button{width:100%;padding:11px;border-radius:10px;background:#fff;color:#000;border:none;font-weight:600;font-family:'Inter';font-size:13px;cursor:pointer;margin-top:8px}
 body.light .trayCard button{background:#0f172a;color:#fff}
 select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid #27272a;background:#000;color:#fff;outline:none;font-family:'Inter';font-size:13px;margin-top:8px}
 body.light select{background:#fff;color:#0f172a;border-color:#e2e8f0}
-@media(max-width:600px){#logoWrap{width:330px;height:330px;max-height:42vh}.chat{height:110px}}
+@media(min-width:768px){#logoWrap{width:420px;height:420px}.chat{height:140px}}
 </style>
 </head>
 <body>
-<div class="top"><div class="logo">J.A.R.V.I.S.<span>BY SOTU • ABU DHABI</span></div><button id="trayBtn" onclick="toggleTray()">☰</button></div>
+<div class="top"><div class="logo">J.A.R.V.I.S.<span>BY SOTU • ABU DHABI</span></div></div>
+<button id="trayBtn" onclick="toggleTray()" aria-label="Options">☰</button>
 
-<div class="center"><div id="logoWrap"><div id="glowBehind"></div><img id="jarvisLogo" src="jarvis-logo.png" alt="JARVIS"></div><div class="subtitle" id="subtitle">Say "Hey Jarvis" or tap me...</div><div class="status">SYSTEM <span>● ONLINE</span></div></div>
+<div class="center">
+<div id="logoWrap">
+<div id="glowBehind"></div>
+<div id="fallbackReactor"><div class="fallbackRing"></div><div class="fallbackRing2"></div><div class="fallbackCore"></div></div>
+<img id="jarvisLogo" src="jarvis-logo.png" alt="JARVIS">
+</div>
+<div class="subtitle" id="subtitle">Say "Hey Jarvis" or tap me...</div>
+<div class="status">SYSTEM <span>● ONLINE</span></div>
+</div>
 
-<div class="bottom"><div class="chat" id="chat"></div><div class="inputRow"><input id="input" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter') sendMsg()"><button class="micBtn" onclick="startVoice()">🎤</button><button class="sendBtn" onclick="sendMsg()">Send</button></div><div class="hint">Tap the logo to speak • Tap ☰ for options</div></div>
+<div class="bottom"><div class="chat" id="chat"></div><div class="inputRow"><input id="input" placeholder="Ask me anything..." enterkeyhint="send" onkeydown="if(event.key==='Enter') sendMsg()"><button class="micBtn" onclick="startVoice()">🎤</button><button class="sendBtn" onclick="sendMsg()">Send</button></div><div class="hint">Tap the logo to speak • Tap ☰ for options</div></div>
 
 <div id="overlay" onclick="closeTray()"></div>
 <div id="tray"><div class="trayHead"><h3>OPTIONS</h3><button class="closeTray" onclick="closeTray()">✕</button></div>
@@ -87,7 +107,7 @@ body.light select{background:#fff;color:#0f172a;border-color:#e2e8f0}
 <div class="trayLabel">LANGUAGE</div><select id="langSelect" onchange="changeLang()"></select>
 <div class="trayLabel">VOICE CLONE</div><div class="trayRow"><button onclick="setCloneTarget('sotu')">Clone Sotu</button><button onclick="setCloneTarget('yosef')">Clone Yosef</button></div><div class="trayCard"><p id="cloneTargetText">Target: SOTU — Speak 5 seconds.</p><button id="cloneRecordBtn" onclick="recordVoiceClone()">Start Recording</button><button onclick="useClonedVoice()">Use This Voice</button><p id="cloneResult" style="margin-top:8px;font-weight:600;font-size:12px"></p><p style="font-size:11px;margin-top:6px">Sotu: <span id="sotuVoiceStatus">Not cloned</span> • Yosef: <span id="yosefVoiceStatus">Not cloned</span></p></div>
 <div class="trayLabel">LEARN</div><div class="trayCard"><p>Teach Jarvis: When you say X, he says Y.</p><input id="learnTrigger" placeholder="When I say... e.g. Salam"><input id="learnReply" placeholder="Jarvis says... e.g. Walaikum Salam King!"><button onclick="teachJarvisFromBox()">Teach Him</button><div id="learnedList" style="text-align:left;margin-top:10px;font-size:12px"></div></div>
-<div class="trayLabel">SETTINGS</div><div class="trayRow"><button onclick="toggleTheme()">Theme</button><button onclick="toggleWake()" id="wakeBtn">Wake: ON</button><button onclick="clearChat()">Clear Chat</button><button onclick="forgetMe()">Forget Me</button></div>
+<div class="trayLabel">SETTINGS</div><div class="trayRow"><button onclick="toggleTheme()">Theme</button><button onclick="toggleWake()" id="wakeBtn">Wake: OFF</button><button onclick="clearChat()">Clear Chat</button><button onclick="forgetMe()">Forget Me</button></div>
 <div class="trayLabel">QUICK ACTIONS</div><div class="trayRow"><button onclick="quickAsk('Tell me a joke')">Joke</button><button onclick="quickAsk('Tell me a story')">Story</button><button onclick="quickAsk('Weather in Abu Dhabi')">Weather</button><button onclick="quickAsk('Translate hello to Arabic')">Translate</button><button onclick="quickAsk('Calculate 25 * 40')">Calculate</button><button onclick="quickAsk('Play Alan Walker Faded')">Play Music</button></div>
 <div class="trayCard" style="margin-top:20px"><p>Built by Sotu (JASJEET) & KING_YOSEF_<br>Abu Dhabi, UAE</p></div></div>
 
@@ -100,11 +120,24 @@ let learned = JSON.parse(localStorage.getItem('jarvis_learned') || "{}");
 let sotuVoice = JSON.parse(localStorage.getItem('jarvis_sotu_voice') || "null");
 let yosefVoice = JSON.parse(localStorage.getItem('jarvis_yosef_voice') || "null");
 let voiceMode = localStorage.getItem('jarvis_voice') || "stark";
-let wakeOn = true, wakeRec = null, cloneTarget = 'sotu';
+let wakeOn = false, wakeRec = null, cloneTarget = 'sotu';
+let isListening = false, currentRec = null, heartbeatTimer = null;
 const LANGS = [["English (US)","en-US"],["English (UK)","en-GB"],["Arabic (UAE)","ar-AE"],["Arabic (Saudi)","ar-SA"],["Urdu (Pakistan)","ur-PK"],["Hindi","hi-IN"],["Punjabi","pa-IN"],["Bengali","bn-IN"],["Tamil","ta-IN"],["Telugu","te-IN"],["Marathi","mr-IN"],["Persian","fa-IR"],["Turkish","tr-TR"],["Spanish","es-ES"],["French","fr-FR"],["German","de-DE"],["Italian","it-IT"],["Portuguese","pt-PT"],["Russian","ru-RU"],["Chinese","zh-CN"],["Japanese","ja-JP"],["Korean","ko-KR"],["Thai","th-TH"],["Vietnamese","vi-VN"],["Indonesian","id-ID"],["Malay","ms-MY"],["Filipino","fil-PH"]];
 const VOICE_PRESETS = {stark:{pitch:0.55,rate:0.95,name:"Tony Stark"},sotu:{pitch:sotuVoice?sotuVoice.pitch:0.6,rate:0.95,name:"Sotu"},yosef:{pitch:yosefVoice?yosefVoice.pitch:0.4,rate:0.85,name:"King Yosef"},batman:{pitch:0.15,rate:0.8,name:"Batman"},robot:{pitch:0.1,rate:0.9,name:"Robot"},normal:{pitch:0.6,rate:1.0,name:"Normal"}};
 const JOKES = {urdu:["Ek aadmi ne doctor se kaha: Doctor, mujhe sab kuch bhool jata hai. Doctor bola: Kab se? Aadmi bola: Kab se kya?"],hindi:["Ek ladka exam me fail ho gaya. Maa ne pucha: Kyun? Ladka bola: Teacher ne kaha cheating mat karo, maine maan liya!"],english:["Why did the developer go broke? Because he used up all his cache!"],arabic:["واحد قال لصاحبه: أنا ذكي جدا. صاحبه قال: طيب كم 2+2؟ قال: 5. صاحبه: غلط. قال: شفت؟ أنا ذكي لأني جربت!"]};
 const STORIES = {english:["Once in a small town, there was a boy named Sotu. Everyone laughed at him. But Sotu didn't listen. He built Jarvis, he built an empire."],urdu:["Ek chhote se sheher me ek ladka rehta tha, Sotu. Log kehte the tum se kuch nahi hoga. Lekin Sotu ne kaha: Main dikhaunga. Usne Jarvis banaya."],hindi:["Ek gaon me ek ladka rehta tha, naam tha Sotu. Sab kehte the tu kuch nahi kar sakta. Lekin Sotu ne haar nahi maani. Usne Jarvis banaya."]};
+(function(){
+  let img=document.getElementById('jarvisLogo');
+  let tries=["jarvis-logo.png","JARVIS-logo.png","logo.png","Jarvis-logo.png","./jarvis-logo.png"];
+  let i=0;
+  img.onerror=function(){
+    i++;
+    if(i<tries.length){ img.src=tries[i]; }
+    else { img.style.display='none'; document.getElementById('fallbackReactor').classList.add('show'); }
+  };
+  img.onload=function(){ img.style.display='block'; document.getElementById('fallbackReactor').classList.remove('show'); };
+  setTimeout(()=>{ if(img.naturalWidth===0 && img.complete){ img.onerror(); } }, 2000);
+})();
 function toggleTray(){let t=document.getElementById('tray');let o=document.getElementById('overlay');if(t.classList.contains('open')){closeTray()}else{t.classList.add('open');o.classList.add('open')}} 
 function closeTray(){document.getElementById('tray').classList.remove('open');document.getElementById('overlay').classList.remove('open')}
 function setVoice(v,btn){voiceMode=v;localStorage.setItem('jarvis_voice',v);document.querySelectorAll('#voiceRow button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(v==='sotu'&&sotuVoice)VOICE_PRESETS.sotu.pitch=sotuVoice.pitch;if(v==='yosef'&&yosefVoice)VOICE_PRESETS.yosef.pitch=yosefVoice.pitch;let t=`Voice changed to ${VOICE_PRESETS[v].name}, Sir.`;addMsg(t,'jarvis');speak(t);closeTray();let img=document.getElementById('jarvisLogo');if(img){if(v==='yosef')img.classList.add('yosef');else img.classList.remove('yosef')}}
@@ -116,7 +149,50 @@ let sel=document.getElementById('langSelect');LANGS.forEach(l=>{let o=document.c
 function changeLang(){currentLang=sel.value;localStorage.setItem('jarvis_lang',currentLang);let t="Language changed to "+sel.options[sel.selectedIndex].text;addMsg(t,'jarvis');speak(t)}
 function getMaleVoice(langCode){let voices=speechSynthesis.getVoices();if(!voices.length)return null;let base=langCode.split('-')[0];let male=['David','Daniel','Guy','Ryan','Mark','George','James','John','Michael','Alex','Brian','Kevin','Andrew','Christopher','Matthew','Aaron','Justin','Adam','Paul','Steven','Microsoft David','Microsoft Guy','Microsoft Ryan','Google US English Male','en-US-Wavenet-D'];let v=voices.find(x=>x.lang===langCode&&male.some(n=>x.name.includes(n)));if(v)return v;v=voices.find(x=>x.lang.startsWith(base)&&male.some(n=>x.name.includes(n)));if(v)return v;v=voices.find(x=>male.some(n=>x.name.includes(n)));if(v)return v;let female=['zira','aria','jenny','natasha','samantha','ava','allison','female','eva','sonia','lily'];v=voices.find(x=>!female.some(f=>x.name.toLowerCase().includes(f)));return v||voices[0]}
 if('speechSynthesis' in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}
-function speak(text){try{let img=document.getElementById('jarvisLogo');let glow=document.getElementById('glowBehind');if(img)img.classList.add('speaking');if(glow)glow.classList.add('speaking');document.getElementById('subtitle').textContent=text;speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang=currentLang;let p=VOICE_PRESETS[voiceMode]||VOICE_PRESETS.stark;if(voiceMode==='sotu'&&sotuVoice){p.pitch=sotuVoice.pitch;p.rate=sotuVoice.rate}if(voiceMode==='yosef'&&yosefVoice){p.pitch=yosefVoice.pitch;p.rate=yosefVoice.rate}u.pitch=p.pitch;u.rate=p.rate;let mv=getMaleVoice(currentLang);if(mv)u.voice=mv;u.onend=()=>{if(img)img.classList.remove('speaking');if(glow)glow.classList.remove('speaking')};speechSynthesis.speak(u);setTimeout(()=>{if(img)img.classList.remove('speaking');if(glow)glow.classList.remove('speaking')},Math.min(text.length*80,12000))}catch(e){}}
+function startHeartbeat(){let img=document.getElementById('jarvisLogo');let glow=document.getElementById('glowBehind');if(img)img.classList.add('speaking');if(glow)glow.classList.add('speaking')}
+function stopHeartbeat(){let img=document.getElementById('jarvisLogo');let glow=document.getElementById('glowBehind');if(img)img.classList.remove('speaking');if(glow)glow.classList.remove('speaking');if(heartbeatTimer)clearTimeout(heartbeatTimer)}
+function speak(text){try{startHeartbeat();document.getElementById('subtitle').textContent=text;speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang=currentLang;let p=VOICE_PRESETS[voiceMode]||VOICE_PRESETS.stark;if(voiceMode==='sotu'&&sotuVoice){p.pitch=sotuVoice.pitch;p.rate=sotuVoice.rate}if(voiceMode==='yosef'&&yosefVoice){p.pitch=yosefVoice.pitch;p.rate=yosefVoice.rate}u.pitch=p.pitch;u.rate=p.rate;let mv=getMaleVoice(currentLang);if(mv)u.voice=mv;u.onend=()=>{stopHeartbeat()};u.onerror=()=>{stopHeartbeat()};speechSynthesis.speak(u);heartbeatTimer=setTimeout(()=>{stopHeartbeat()},Math.min(text.length*80+800,13000))}catch(e){stopHeartbeat()}}
+function showListeningUI(on){
+  let img=document.getElementById('jarvisLogo');let glow=document.getElementById('glowBehind');let sub=document.getElementById('subtitle');isListening=on;
+  if(on){ if(img)img.classList.add('listening'); if(glow)glow.classList.add('speaking'); if(sub)sub.textContent="🎤 Listening... Speak now Sir..."; let mic=document.querySelector('.micBtn'); if(mic){mic.style.background='#ef4444';mic.style.color='#fff';mic.textContent='●';} }
+  else { if(img)img.classList.remove('listening'); if(glow)glow.classList.remove('speaking'); let mic=document.querySelector('.micBtn'); if(mic){mic.style.background='';mic.style.color='';mic.textContent='🎤';} }
+}
+function startVoice(){
+  try{ if(currentRec) currentRec.stop(); }catch(e){}
+  try{ speechSynthesis.cancel(); }catch(e){}
+  let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){ alert("Voice needs Chrome. Open this site in Google Chrome on your phone, not WhatsApp."); return; }
+  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+    navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+      stream.getTracks().forEach(t=>t.stop());
+      actuallyListen();
+    }).catch(err=>{
+      alert("Mic blocked! Tap the 🔒 lock icon in Chrome address bar > Site Settings > Microphone > Allow, then reload.");
+      showListeningUI(false);
+    });
+  } else { actuallyListen(); }
+  function actuallyListen(){
+    let rec=new SR(); currentRec=rec; rec.lang=currentLang; rec.interimResults=false; rec.maxAlternatives=1; rec.continuous=false;
+    showListeningUI(true);
+    rec.onresult=function(e){ let txt=e.results[0][0].transcript; showListeningUI(false); document.getElementById('input').value=txt; setTimeout(()=> sendMsg(), 200); };
+    rec.onerror=function(e){
+      showListeningUI(false);
+      if(e.error==='not-allowed'||e.error==='service-not-allowed'){ alert("Mic permission denied. Tap 🔒 in Chrome > Allow Microphone, then reload."); }
+      else if(e.error==='no-speech'){ let m="I didn't hear you, Sir. Try again."; addMsg(m,'jarvis'); speak(m); }
+      else if(e.error==='network'){ let m="Check internet, Sir. Voice needs internet."; addMsg(m,'jarvis'); speak(m); }
+    };
+    rec.onend=function(){ showListeningUI(false); };
+    try{ rec.start(); }catch(e){ showListeningUI(false); }
+  }
+}
+function toggleWake(){ wakeOn=!wakeOn; document.getElementById('wakeBtn').textContent=wakeOn?"Wake: ON":"Wake: OFF"; if(wakeOn) startWakeWord(); else if(wakeRec){ try{wakeRec.stop()}catch(e){} } }
+function startWakeWord(){
+  let isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if(isMobile){ return; }
+  let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR||!wakeOn) return;
+  try{ wakeRec=new SR(); wakeRec.continuous=true; wakeRec.interimResults=true; wakeRec.lang=currentLang; wakeRec.onresult=function(e){ for(let i=e.resultIndex;i<e.results.length;i++){ let txt=e.results[i][0].transcript.toLowerCase(); if(txt.includes('hey jarvis')||txt.includes('jarvis')){ let m="Yes "+(userName||"Sir")+"? I heard you."; addMsg(m,'jarvis'); speak(m); setTimeout(()=> startVoice(), 800); break; } } }; wakeRec.onend=function(){ if(wakeOn) setTimeout(startWakeWord,1000); }; wakeRec.onerror=function(){ if(wakeOn) setTimeout(startWakeWord,2000); }; wakeRec.start(); }catch(e){}
+}
 function updateCloneStatus(){document.getElementById('sotuVoiceStatus').textContent=sotuVoice?`Cloned - ${sotuVoice.avgPitch} Hz`:"Not cloned";document.getElementById('yosefVoiceStatus').textContent=yosefVoice?`Cloned - ${yosefVoice.avgPitch} Hz`:"Not cloned"}
 function setCloneTarget(who){cloneTarget=who;document.getElementById('cloneTargetText').textContent=`Target: ${who==='sotu'?'SOTU':'KING_YOSEF_'} — Speak 5 seconds.`}
 async function recordVoiceClone(){try{let stream=await navigator.mediaDevices.getUserMedia({audio:true});let rec=new MediaRecorder(stream);let chunks=[];rec.ondataavailable=e=>chunks.push(e.data);document.getElementById('cloneRecordBtn').textContent="Recording... Speak Now!";let ctx=new (window.AudioContext||window.webkitAudioContext)();let src=ctx.createMediaStreamSource(stream);let an=ctx.createAnalyser();an.fftSize=2048;src.connect(an);let samples=[];let iv=setInterval(()=>{let buf=new Float32Array(an.fftSize);an.getFloatTimeDomainData(buf);let p=autoCorrelate(buf,ctx.sampleRate);if(p>50&&p<400)samples.push(p)},100);rec.onstop=()=>{clearInterval(iv);stream.getTracks().forEach(t=>t.stop());ctx.close();let avg=samples.length?samples.reduce((a,b)=>a+b,0)/samples.length:(cloneTarget==='yosef'?95:120);let mapped=Math.max(0.3,Math.min(1,avg/200));let data={pitch:mapped,rate:0.95,avgPitch:Math.round(avg)};if(cloneTarget==='sotu'){sotuVoice=data;localStorage.setItem('jarvis_sotu_voice',JSON.stringify(data))}else{yosefVoice=data;localStorage.setItem('jarvis_yosef_voice',JSON.stringify(data))}document.getElementById('cloneResult').textContent=`${cloneTarget==='sotu'?'Sotu':'King Yosef'} voice cloned! Pitch ${Math.round(avg)} Hz`;document.getElementById('cloneRecordBtn').textContent="Start Recording";updateCloneStatus();let t=`${cloneTarget==='sotu'?'Sotu':'King Yosef'} voice cloned, Sir!`;addMsg(t,'jarvis');speak(t)};rec.start();setTimeout(()=>rec.stop(),5000)}catch(e){alert("Allow mic permission.")}}
@@ -135,12 +211,16 @@ const CITY={"abu dhabi":[24.47,54.37],"dubai":[25.20,55.27],"sharjah":[25.35,55.
 async function getWeather(city){let co=CITY[city.toLowerCase()]||[24.47,54.37];try{let res=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${co[0]}&longitude=${co[1]}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=auto`);let d=await res.json();let c=d.current;let codes={0:"Clear Sky",1:"Mostly Clear",2:"Partly Cloudy",3:"Overcast",45:"Foggy",61:"Rain",63:"Heavy Rain",71:"Snow",95:"Thunderstorm"};let desc=codes[c.weather_code]||"Clear";return `Weather in ${city}: ${desc}, ${c.temperature_2m}°C, feels like ${c.apparent_temperature}°C, humidity ${c.relative_humidity_2m}%, wind ${c.wind_speed_10m} km/h.`}catch(e){return `Sorry, could not fetch weather for ${city}.`}}
 async function askAI(q){try{let res=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:[{role:'system',content:`You are JARVIS, built by Sotu (Jasjeet) and KING_YOSEF_ in Abu Dhabi, UAE. You are the perfect AI assistant - smart, confident, funny, like Tony Stark's Jarvis. User is ${userName||"Sir"}. You have learned: ${JSON.stringify(learned).slice(0,300)}. Answer short, cool, under 90 words, in language ${currentLang}.`},{role:'user',content:q}],max_tokens:220})});if(res.ok){let d=await res.json();let txt=d.choices?.[0]?.message?.content;if(txt&&txt.length>5)return txt.slice(0,600)}}catch(e){}try{let res=await fetch('https://text.pollinations.ai/'+encodeURIComponent(q));if(res.ok){let txt=await res.text();if(txt&&txt.length>5&&!txt.includes('<!DOCTYPE'))return txt.slice(0,600)}}catch(e){}if(q.toLowerCase().includes('who are you'))return "I am Jarvis, built by Sotu and KING_YOSEF_ in Abu Dhabi. I am your perfect AI - I learn from you, speak in your voice, and answer anything.";return `Great question, ${userName||"Sir"}. As Jarvis from Abu Dhabi, I think the smartest move is to build it. Ask me again in a different way and I will go deeper.`}
 async function sendMsg(){let inp=document.getElementById('input');let q=inp.value.trim();if(!q)return;addMsg(q,'user');inp.value='';let lower=q.toLowerCase();let lr=checkLearned(lower);if(lr&&!hasAny(lower,['teach','learn'])){addMsg(lr,'jarvis');speak(lr);return}if(hasAny(lower,['teach jarvis','teach me','teach','sikhao'])){let m=q.match(/when i say\s+(.+?)\s+say\s+(.+)/i);if(m){let trig=m[1].trim().toLowerCase().replace(/["']/g,'');let rep=m[2].trim();learned[trig]=rep;localStorage.setItem('jarvis_learned',JSON.stringify(learned));let r=`Learned! When you say "${trig}", I will say "${rep}".`;addMsg(r,'jarvis');speak(r);showLearned();return}toggleTray();document.getElementById('learnTrigger').focus();let r="Okay Sir, teach me! Opened the tray - fill 'When I say' and 'Jarvis says'.";addMsg(r,'jarvis');speak(r);return}if(hasAny(lower,['speak like yosef','yosef voice','king voice'])){if(yosefVoice){voiceMode='yosef';localStorage.setItem('jarvis_voice','yosef');let r="I am KING_YOSEF_. The King is speaking. The throne is mine.";addMsg(r,'jarvis');speak(r)}else{let r="King Yosef's voice is not cloned yet. Open the tray - Clone Yosef.";addMsg(r,'jarvis');speak(r);toggleTray()}return}if(hasAny(lower,['speak like sotu','sotu voice','speak like jasjeet'])){if(sotuVoice){voiceMode='sotu';localStorage.setItem('jarvis_voice','sotu');let r="I am Sotu. The builder. I built this Jarvis.";addMsg(r,'jarvis');speak(r)}else{let r="Sotu's voice is not cloned yet. Open the tray - Clone Sotu.";addMsg(r,'jarvis');speak(r);toggleTray()}return}if(hasAny(lower,['speak like batman'])){voiceMode='batman';localStorage.setItem('jarvis_voice','batman');let r="I am Batman. I am vengeance. I am the night.";addMsg(r,'jarvis');speak(r);return}if(hasAny(lower,['speak like tony','stark voice','iron man'])){voiceMode='stark';localStorage.setItem('jarvis_voice','stark');let r="I am Iron Man. Stark voice activated.";addMsg(r,'jarvis');speak(r);return}if(hasAny(lower,['normal voice','male voice'])){voiceMode='normal';localStorage.setItem('jarvis_voice','normal');let r="Back to normal deep male voice, Sir.";addMsg(r,'jarvis');speak(r);return}if(hasAny(lower,['joke','mazak','chiste'])){let lang='english';if(hasAny(lower,['urdu']))lang='urdu';else if(hasAny(lower,['hindi']))lang='hindi';else if(hasAny(lower,['arabic']))lang='arabic';else if(currentLang.startsWith('ur'))lang='urdu';else if(currentLang.startsWith('hi'))lang='hindi';else if(currentLang.startsWith('ar'))lang='arabic';let list=JOKES[lang]||JOKES.english;let j=list[Math.floor(Math.random()*list.length)];addMsg(j,'jarvis');speak(j);return}if(hasAny(lower,['story','kahani'])){let lang='english';if(hasAny(lower,['hindi']))lang='hindi';else if(hasAny(lower,['urdu']))lang='urdu';else if(currentLang.startsWith('hi'))lang='hindi';else if(currentLang.startsWith('ur'))lang='urdu';let list=STORIES[lang]||STORIES.english;let s=list[Math.floor(Math.random()*list.length)];addMsg(s,'jarvis');speak(s);return}if(hasAny(lower,['remind me','remind'])){let m=q.match(/in (\d+)\s*(minute|minutes|min|second|seconds|hour|hours)/i)||q.match(/(\d+)\s*(minute|minutes|min|second|hour)/i);let min=m?parseInt(m[1]):5;if(lower.includes('second'))min=Math.max(0.1,min/60);if(lower.includes('hour'))min=min*60;let txt=q.replace(/remind me in \d+.*?(to |ke |ki )?/i,'').replace(/remind me.*to /i,'').trim()||"Your reminder";setTimeout(()=>{let msg="Reminder, "+(userName||"Sir")+"! It's time to: "+txt;addMsg(msg,'jarvis');speak(msg)},min*60000);let r=`Done, ${userName||"Sir"}. I will remind you in ${min} minute(s) to: ${txt}.`;addMsg(r,'jarvis');speak(r);return}if(hasAny(lower,['calculate','calc','what is','how much','hisab','kitna','+','*','/'])&&/[0-9]/.test(q)){let c=tryCalc(q);if(c){let r=`${c.expr} = ${c.result}, Sir.`;addMsg(r,'jarvis');speak(r);return}}if(hasAny(lower,['translate','tarjuma'])){let m=q.match(/translate\s+(.+?)\s+to\s+(\w+)/i)||q.match(/translate\s+(.+?)\s+in\s+(\w+)/i);if(m){let tr=await translateText(m[1].trim(),m[2].trim());if(tr){let r=`"${m[1].trim()}" in ${m[2].trim()} is: "${tr}"`;addMsg(r,'jarvis');speak(tr);return}}else{let r="Say like: 'Translate hello to Arabic'";addMsg(r,'jarvis');speak(r);return}}if(hasAny(lower,['play ','play music','play song','gaana'])||lower.startsWith('play')){let song=q.replace(/play |play music|play song|gaana|chalao/gi,'').trim()||"Alan Walker Faded";let r="Playing '"+song+"' for you, Sir.";addMsg(r,'jarvis');speak(r);window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(song),'_blank');return}if(hasAny(lower,['weather','mausam','hava'])){let city="Abu Dhabi";for(let c in CITY){if(lower.includes(c))city=c}let m=q.match(/in ([a-zA-Z ]+)/i);if(m)city=m[1].trim();let th=document.createElement('div');th.className='msg jarvis';th.textContent="Checking weather...";document.getElementById('chat').appendChild(th);let w=await getWeather(city);th.remove();addMsg(w,'jarvis');speak(w);return}if(hasAny(lower,['who am i','do you know me'])){let r=userName?`You are ${userName}. I remember you.`:"I don't know your name yet.";addMsg(r,'jarvis');speak(r);return}if(hasAny(lower,['forget me'])){forgetMe();return}if(hasAny(lower,['clear chat'])){clearChat();return}if(hasAny(lower,['my name is','mera naam','i am ','main hun'])&&lower.length<40){let n=q.replace(/my name is|mera naam|i am|i'm|main hun/gi,'').trim().split(' ')[0];n=n.charAt(0).toUpperCase()+n.slice(1);userName=n;localStorage.setItem('jarvis_name',n);let r="Nice to meet you, "+n+". I will remember you forever.";addMsg(r,'jarvis');speak(r);return}if(hasAny(lower,['dark mode'])){if(theme!=='dark'){theme='dark';localStorage.setItem('jarvis_theme',theme);applyTheme()}let r="Dark mode on, Sir.";addMsg(r,'jarvis');speak(r);return}if(hasAny(lower,['light mode'])){if(theme!=='light'){theme='light';localStorage.setItem('jarvis_theme',theme);applyTheme()}let r="Light mode on, Sir.";addMsg(r,'jarvis');speak(r);return}if(hasAny(lower,['open youtube'])){addMsg("Opening YouTube, Sir.",'jarvis');speak("Opening YouTube, Sir.");window.open('https://youtube.com','_blank');return}if(hasAny(lower,['open google'])){addMsg("Opening Google, Sir.",'jarvis');speak("Opening Google, Sir.");window.open('https://google.com','_blank');return}let reply="";if(hasAny(lower,['time','waqt']))reply="It is "+new Date().toLocaleTimeString()+", "+(userName||"Sir")+".";else if(hasAny(lower,['date','tareekh']))reply="Today is "+new Date().toDateString()+", "+(userName||"Sir")+".";else if(hasAny(lower,['who made you','developer','kisne banaya']))reply="I was built by Sotu, also known as Jasjeet, and KING_YOSEF_ in Abu Dhabi, UAE. I can speak in both their voices.";else if(hasAny(lower,['hello','hi','hey','assalam','namaste','hola','salam']))reply="Hello "+(userName||"Sir")+". I am Jarvis from Abu Dhabi. Ask me anything.";else if(hasAny(lower,['thank','shukriya']))reply="Always a pleasure, "+(userName||"Sir")+".";else if(hasAny(lower,['king_yosef','yosef']))reply="KING_YOSEF_ is the King. The throne builder. Sotu is his lil bro building the empire. Say 'Speak like Yosef' to hear the King.";else{let th=document.createElement('div');th.className='msg jarvis';th.textContent="Thinking...";document.getElementById('chat').appendChild(th);reply=await askAI(q);th.remove()}addMsg(reply,'jarvis');speak(reply)}
-function startVoice(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert("Voice works best in Chrome.");return}let img=document.getElementById('jarvisLogo');if(img)img.classList.add('listening');document.getElementById('subtitle').textContent="Listening... Speak now Sir.";let rec=new SR();rec.lang=currentLang;rec.start();rec.onresult=function(e){let txt=e.results[0][0].transcript;document.getElementById('input').value=txt;if(img)img.classList.remove('listening');sendMsg()};rec.onend=()=>{if(img)img.classList.remove('listening')};rec.onerror=()=>{if(img)img.classList.remove('listening')}}
-function toggleWake(){wakeOn=!wakeOn;document.getElementById('wakeBtn').textContent=wakeOn?"Wake: ON":"Wake: OFF";if(wakeOn)startWakeWord();else if(wakeRec)wakeRec.stop()}
-function startWakeWord(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR||!wakeOn)return;try{wakeRec=new SR();wakeRec.continuous=true;wakeRec.interimResults=true;wakeRec.lang=currentLang;wakeRec.onresult=function(e){for(let i=e.resultIndex;i<e.results.length;i++){let txt=e.results[i][0].transcript.toLowerCase();if(txt.includes('hey jarvis')||txt.includes('jarvis')){let m="Yes "+(userName||"Sir")+"? I heard you.";addMsg(m,'jarvis');speak(m);startVoice();break}}};wakeRec.onend=function(){if(wakeOn)setTimeout(startWakeWord,1000)};wakeRec.onerror=function(){if(wakeOn)setTimeout(startWakeWord,2000)};wakeRec.start()}catch(e){}}
-setTimeout(()=>{if(wakeOn)startWakeWord()},1000);
-document.getElementById('jarvisLogo').addEventListener('click',()=>{let m="Yes "+(userName||"Sir")+"? I am listening.";addMsg(m,'jarvis');speak(m);startVoice()});
-window.onload=()=>{if(chatHistory.length>0){chatHistory.forEach(m=>{let d=document.createElement('div');d.className='msg '+m.who;d.textContent=m.text;document.getElementById('chat').appendChild(d)});document.getElementById('chat').scrollTop=document.getElementById('chat').scrollHeight}let w=userName?`Welcome back, ${userName}! I remember you. Ask me anything.`:"Hello Sir. I am Jarvis. Built by Sotu and KING_YOSEF_ in Abu Dhabi. What is your name?";addMsg(w,'jarvis');speak(w);updateCloneStatus();showLearned();document.querySelectorAll('#voiceRow button').forEach(b=>{b.classList.toggle('active',b.dataset.voice===voiceMode)})};
+document.getElementById('jarvisLogo').addEventListener('click',()=>{
+  let m="Yes "+(userName||"Sir")+"? I am listening.";
+  addMsg(m,'jarvis'); speak(m);
+  setTimeout(()=> startVoice(), 900);
+});
+window.onload=()=>{
+  if(chatHistory.length>0){chatHistory.forEach(m=>{let d=document.createElement('div');d.className='msg '+m.who;d.textContent=m.text;document.getElementById('chat').appendChild(d)});document.getElementById('chat').scrollTop=document.getElementById('chat').scrollHeight}
+  let w=userName?`Welcome back, ${userName}! I remember you. Ask me anything.`:"Hello Sir. I am Jarvis. Built by Sotu and KING_YOSEF_ in Abu Dhabi. What is your name?";
+  addMsg(w,'jarvis'); speak(w); updateCloneStatus(); showLearned(); document.querySelectorAll('#voiceRow button').forEach(b=>{b.classList.toggle('active',b.dataset.voice===voiceMode)});
+};
 </script>
 </body>
 </html>
